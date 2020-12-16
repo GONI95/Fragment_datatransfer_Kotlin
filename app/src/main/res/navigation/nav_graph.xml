@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.fragment_datatransfer_kotlin.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_subFragment"
+            app:destination="@id/subFragment">
+        </action>
+        <argument
+            android:name="data"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/subFragment"
+        android:name="com.example.fragment_datatransfer_kotlin.SubFragment"
+        android:label="fragment_sub"
+        tools:layout="@layout/fragment_sub" >
+        <action
+            android:id="@+id/action_subFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="text"
+            app:argType="string" />
+    </fragment>
+</navigation>
