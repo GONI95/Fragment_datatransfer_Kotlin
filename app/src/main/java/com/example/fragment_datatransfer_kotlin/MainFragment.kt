@@ -14,7 +14,6 @@ class MainFragment : Fragment() {
 //onCreateView()를 지우고 Fragment() ->(R.layout.fragment_main)로 변경도 가능하다.
     private lateinit var binding : FragmentMainBinding
     private val viewModel by activityViewModels<MainViewModel>()
-    var text = "텍스트 초기값"
     // MainFragment가 포함된 Activity의 ViewModel을 쓰기 떄문에 MainActivity의 lifecycle에 따라 작동됨
 
     override fun onCreateView(
@@ -42,12 +41,16 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.button.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToSubFragment(viewModel.data)
+            // nav_graph에 정의된 action을 통해 데이터 전송 시 key가 text인 argument에 value를 전달
             findNavController().navigate(action)
         }
-
-        binding.button2.text = arguments?.getString("data") ?: "Null"
+        var text = arguments?.getString("data") ?: "Null"
+        binding.button2.text = text
+        // Button 1은 ViewModel의 data를 가져오기 때문에 Null이 아님
+        // 하지만 text는 arguments에 저장된 value를 가져오기 때문에 첫 실행 시 Null이 나옴
 
         binding.button2.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToSubFragment(text)
